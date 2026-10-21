@@ -1,30 +1,64 @@
 <!doctype html>
-<html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Paraketa Menü</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Karla:wght@400;600&display=swap">
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Paraketa Balık · Menü</title>
+<meta name="description" content="Paraketa Balık menüsü">
+<meta name="theme-color" content="#f7f9fb">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600&display=swap">
 <style>
-/* Tek sütun, telefon odaklı; masadan QR okutulduğunda açılan karşılama ekranı */
+/* Tek sütun, telefon odaklı. Logo beyaz zemine çizildiği için sayfa bilinçli olarak tek (açık) temada:
+   logonun lacivert mürekkebi + olta iğnelerinin altın tonu, deniz sisi beyazı zemin. */
 :root{
-  --bg:#f6f3ee; --fg:#22201c; --muted:#6f6a61; --line:#ddd6ca; --accent:#a4492f;
-  --display:"Fraunces", Georgia, serif; --body:"Karla", system-ui, sans-serif;
+  color-scheme:light;
+  --paper:#f7f9fb;      /* deniz sisi beyazı */
+  --ink:#08315d;        /* logodaki lacivert */
+  --ink-soft:#4a5f78;   /* ikincil metin */
+  --brass:#826732;      /* olta iğnesi altını */
+  --line:#d6dde6;
+  --display:"Marcellus", "Cormorant Garamond", Georgia, serif;
+  --body:"Nunito Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1b1916;--fg:#efe9df;--muted:#a59e92;--line:#3a352e;--accent:#e08a6c;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#1b1916;--fg:#efe9df;--muted:#a59e92;--line:#3a352e;--accent:#e08a6c;color-scheme:dark}
+*{box-sizing:border-box}
 html,body{height:100%}
-body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.55;
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-main{min-height:100%;max-width:30rem;margin:0 auto;display:flex;flex-direction:column;justify-content:center;gap:1.25rem;padding-block:3rem;text-align:left}
-.eyebrow{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600}
-h1{font-family:var(--display);font-weight:700;font-size:clamp(2.2rem,9vw,3rem);line-height:1.05;margin:0;text-wrap:balance}
-p{margin:0;color:var(--muted);max-width:34ch}
-hr{border:0;border-top:1px solid var(--line);width:100%;margin:.5rem 0}
-.note{font-size:.875rem}
-*{box-sizing:border-box}body{margin:0}
-</style></head><body>
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font:400 16px/1.6 var(--body);
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+}
+main{
+  min-height:100%;max-width:32rem;margin:0 auto;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:1.75rem;padding-block:2.5rem 3rem;text-align:center;
+}
+.logo{width:min(100%,22rem);height:auto;display:block}
+.rope{display:flex;align-items:center;gap:.75rem;width:min(100%,16rem);color:var(--brass)}
+.rope::before,.rope::after{content:"";flex:1;height:1px;background:currentColor;opacity:.55}
+.rope span{width:6px;height:6px;border-radius:50%;background:currentColor}
+h1{
+  margin:0;font:400 clamp(1.6rem,6.5vw,2.1rem)/1.2 var(--display);
+  letter-spacing:.02em;text-wrap:balance;
+}
+p{margin:0;color:var(--ink-soft);max-width:30ch}
+.sign{font:400 .8rem/1 var(--display);letter-spacing:.32em;text-transform:uppercase;color:var(--brass);padding-left:.32em}
+@media (prefers-reduced-motion:no-preference){
+  .logo{animation:rise .9s ease-out both}
+  @keyframes rise{from{transform:translateY(6px)}to{transform:none}}
+}
+</style>
+</head>
+<body>
 <main>
-  <span class="eyebrow">Paraketa · Menü</span>
-  <h1>Menümüz çok yakında burada.</h1>
+  <img class="logo" src="logo.svg" alt="Paraketa Balık" width="1345" height="890">
+  <div class="rope" aria-hidden="true"><span></span></div>
+  <h1>Menümüz çok yakında burada</h1>
   <p>Yeni menümüzü hazırlıyoruz. Bu arada siparişiniz için garsonumuzdan yardım isteyebilirsiniz.</p>
-  <hr>
-  <p class="note">Afiyet olsun.</p>
+  <span class="sign">Afiyet olsun</span>
 </main>
-</body></html>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Paraketa Balık · Menü</title>
+<meta name="description" content="Paraketa Balık menüsü: soğuk başlangıçlar, ara sıcaklar, ana yemekler ve içecekler.">
+<meta name="theme-color" content="#f6f2e9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0c2340" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&display=swap">
+<style>
+/* Basılı menünün telefondaki karşılığı: kırık beyaz kâğıt, lacivert mürekkep, olta altını çerçeveler.
+   Üstte logo, altında yapışkan bölüm çubuğu; bölümler tek sütunda alt alta.
+   Karanlık mod: gece laciverti zemin, logo ve balık çizimi kırık beyaza döner. */
+:root{
+  color-scheme:light dark;
+  --paper:#f6f2e9;
+  --ink:#08315d;
+  --ink-soft:#4b5d72;
+  --brass:#8a6d36;
+  --rule:#d9cfbd;
+  --fish:#2b4aa0;
+  --serif:"Cormorant Garamond", "EB Garamond", Georgia, "Times New Roman", serif;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --paper:#0c2340;
+    --ink:#f1ebdf;
+    --ink-soft:#b3bfcd;
+    --brass:#c9a96b;
+    --rule:#2a4262;
+    --fish:#8fa6d9;
+  }
+}
+*{box-sizing:border-box}
+html{background:var(--paper);scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font:500 18px/1.35 var(--serif);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  font-variant-numeric:lining-nums;
+}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--paper);z-index:10}
+.gutter{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.col{max-width:34rem;margin:0 auto}
+
+/* Başlık */
+/* Karşılama ekranı: QR okutulunca ilk görülen tam ekran; menü hemen altında. */
+header{position:relative;overflow:hidden;padding-top:env(safe-area-inset-top,0px);
+  min-height:100vh;min-height:100svh;display:flex;flex-direction:column}
+header .col{flex:1;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:2rem;padding-block:3rem 2rem;position:relative;text-align:center}
+.logo{width:min(88%,22rem);height:auto;display:block;position:relative;z-index:1}
+.welcome{margin:0;font:italic 500 1.2rem/1.4 var(--serif);color:var(--ink-soft);max-width:24ch}
+.cta{display:inline-flex;align-items:center;gap:.6rem;padding:5px;border:1px solid var(--brass);border-radius:3px;
+  color:var(--ink);text-decoration:none}
+.cta span{display:block;border:1px solid var(--brass);border-radius:2px;padding:1rem 2rem;
+  font:600 1rem/1 var(--serif);letter-spacing:.16em;text-transform:uppercase;transition:background .2s,color .2s}
+.cta:hover span,.cta:active span{background:var(--brass);color:var(--paper)}
+.cta:focus-visible{outline:2px solid var(--brass);outline-offset:4px}
+.down{display:block;width:22px;height:22px;margin:0 auto;color:var(--brass);opacity:.8}
+@media (prefers-reduced-motion:no-preference){
+  .down{animation:bob 2.2s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+}
+.logo .i{fill:var(--ink)}
+.logo .g{fill:var(--brass)}
+.logo .w{fill:var(--paper)}
+.fish{position:absolute;top:-6px;width:150px;aspect-ratio:633/255;max-width:40%;
+  background:var(--fish);opacity:.85;
+  -webkit-mask:url(balik.png) center/contain no-repeat;mask:url(balik.png) center/contain no-repeat}
+.fish.l{left:-46px;transform:rotate(-58deg);transform-origin:center}
+.fish.r{right:-46px;transform:scaleX(-1) rotate(-58deg)}
+
+/* Bölüm çubuğu */
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-block:1px solid var(--rule)}
+nav ul{list-style:none;margin:0 auto;padding:0;max-width:34rem;display:flex;justify-content:space-between;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav ul::-webkit-scrollbar{display:none}
+nav a{display:block;white-space:nowrap;padding:14px 6px;color:var(--ink);text-decoration:none;
+  font:600 .78rem/1 var(--serif);letter-spacing:.08em;text-transform:uppercase;border-bottom:2px solid transparent}
+nav a:hover,nav a[aria-current="true"]{border-bottom-color:var(--brass);color:var(--brass)}
+nav a:focus-visible{outline:2px solid var(--brass);outline-offset:-4px}
+
+/* Bölümler */
+main .col{display:flex;flex-direction:column;gap:2.75rem;padding-block:2rem 3rem}
+section{display:flex;flex-direction:column;gap:1.4rem}
+.frame{align-self:center;position:relative;padding:5px;border:1px solid var(--brass);border-radius:3px;min-width:min(100%,15rem)}
+.frame h2{margin:0;border:1px solid var(--brass);border-radius:2px;padding:.85rem 1.75rem;text-align:center;
+  font:600 1.05rem/1.1 var(--serif);letter-spacing:.12em;color:var(--ink)}
+ul.items{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1rem}
+.item{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:1rem;align-items:baseline}
+.item h3{margin:0;font:700 1.15rem/1.2 var(--serif);overflow-wrap:anywhere}
+.item .price{font:700 1.05rem/1.2 var(--serif);white-space:nowrap;font-variant-numeric:tabular-nums lining-nums}
+.item p{grid-column:1/-1;margin:.15rem 0 0;font:italic 500 1rem/1.3 var(--serif);color:var(--ink-soft)}
+.item .tag{font:italic 500 .95rem var(--serif);color:var(--brass);white-space:nowrap}
+ul.items.compact{gap:.6rem}
+/* Seçenekli ürünler (Tek/Duble, şişe boyları): ad solda, seçenekler sağda alt alta */
+.item.multi{align-items:start}
+.opts{display:grid;grid-template-columns:auto auto;column-gap:.75rem;row-gap:.15rem;justify-items:end;align-items:baseline}
+.opts dt{font:italic 500 .95rem/1.25 var(--serif);color:var(--ink-soft);justify-self:start}
+.opts dd{margin:0;font:700 1.02rem/1.25 var(--serif);white-space:nowrap;font-variant-numeric:tabular-nums lining-nums}
+.sub{margin:.4rem 0 -.4rem;font:600 .78rem/1 var(--serif);letter-spacing:.2em;text-transform:uppercase;color:var(--brass);display:flex;align-items:center;gap:.75rem}
+.sub::after{content:"";flex:1;height:1px;background:var(--rule)}
+.fishes{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.55rem 1.25rem}
+.fishes li{font:700 1.12rem/1.25 var(--serif)}
+.note{margin:0;text-align:center;font:italic 500 1rem/1.4 var(--serif);color:var(--ink-soft)}
+.group-title{margin:1rem 0 -.75rem;text-align:center;font:600 .78rem/1 var(--serif);letter-spacing:.32em;text-transform:uppercase;color:var(--brass);padding-left:.32em}
+
+footer{border-top:1px solid var(--rule)}
+footer .col{padding-block:1.5rem 2.25rem;text-align:center;color:var(--ink-soft);font:italic 500 1rem/1.4 var(--serif);display:flex;flex-direction:column;gap:.35rem}
+footer .sign{font:600 .78rem/1 var(--serif);font-style:normal;letter-spacing:.32em;text-transform:uppercase;color:var(--brass);padding-left:.32em;margin-top:.6rem}
+</style>
+</head>
+<body>
+<header class="gutter">
+  <span class="fish l" aria-hidden="true"></span>
+  <span class="fish r" aria-hidden="true"></span>
+  <div class="col">
+    <!--LOGO-->
+    <p class="welcome">Paraketa'ya hoş geldiniz</p>
+    <a class="cta" href="#salatalar"><span>Menümüz için tıklayın</span></a>
+  </div>
+  <svg class="down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg>
+  <div style="height:1.25rem"></div>
+</header>
+
+<nav aria-label="Menü bölümleri" class="gutter">
+  <ul>
+<!--NAV-->
+  </ul>
+</nav>
+
+<main class="gutter">
+<div class="col">
+<!--SECTIONS-->
+</div>
+</main>
+
+<footer class="gutter">
+  <div class="col">
+    <span class="sign">Afiyet olsun</span>
+  </div>
+</footer>
+
+<script>
+/* Kaydırırken bulunulan bölümü çubukta işaretle (JS yoksa da menü tam çalışır). */
+(function(){
+  var links=[].slice.call(document.querySelectorAll('nav a'));
+  if(!('IntersectionObserver' in window))return;
+  var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+  document.querySelectorAll('main section').forEach(function(s){var n=s.getAttribute('data-nav');if(n&&map[n])map[s.id]=map[n];});
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){
+        links.forEach(function(a){a.removeAttribute('aria-current')});
+        var a=map[e.target.id];if(a){a.setAttribute('aria-current','true');
+          var ul=a.closest('ul');ul.scrollLeft=a.offsetLeft-(ul.clientWidth-a.offsetWidth)/2;}
+      }
+    });
+  },{rootMargin:'-30% 0px -60% 0px'});
+  document.querySelectorAll('main section').forEach(function(s){io.observe(s)});
+})();
+</script>
+</body>
+</html>

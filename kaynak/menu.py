@@ -104,7 +104,8 @@ MENU = [
              "Dülger", "Eşkina", "Karagöz", "Tekir", "Barbun", "Jumbo Kalkan", "Kırlangıç",
              "Lipsoz", "Kofana", "Lagos", "Mercan", "Sinarit", "Sardalya", "Istakoz", "Böcek",
              "Pavurya", "Orfoz", "Minekop"],
-    "note": "Balıklarımızın fiyatları günlük olarak değişmektedir.",
+    "intro": "Günün taze balıkları",
+    "note": "Balıklarımızı her gün taze olarak alıyoruz. Fiyatlar mevsime ve güne göre değiştiğinden lütfen garsonumuza danışınız.",
   }),
   ("tatlilar", "TATLILAR & MEYVELER", "Tatlılar", None, [
     ("Ayva Tatlısı", "450 TL"),
@@ -218,7 +219,8 @@ def build():
             nav.append(f'    <li><a href="#{sid}">{e(navlbl)}</a></li>')
         attr = "" if navlbl else f' data-nav="{cur_nav}"'
         if isinstance(content, dict):
-            body = ('    <ul class="fishes">' + "".join(f"<li>{e(f)}</li>" for f in content["fish"]) +
+            body = ((f'    <p class="note-title">{e(content["intro"])}</p>\n' if content.get("intro") else "") +
+                    '    <ul class="fishes">' + "".join(f"<li>{e(f)}</li>" for f in content["fish"]) +
                     f'</ul>\n    <p class="note">{e(content["note"])}</p>')
         else:
             body = '    <ul class="items compact">\n' + "\n".join("      " + item_html(i) for i in content) + "\n    </ul>"

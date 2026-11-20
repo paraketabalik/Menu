@@ -110,6 +110,12 @@ ul.items.compact{gap:.6rem}
 .fishes li{font:700 1.12rem/1.25 var(--serif)}
 .note-title{margin:-.3rem 0 0;text-align:center;font:600 .78rem/1 var(--serif);letter-spacing:.24em;text-transform:uppercase;color:var(--brass);padding-left:.24em}
 .note{margin:0;text-align:center;font:italic 500 1rem/1.4 var(--serif);color:var(--ink-soft)}
+/* Günlük fiyatlar işletme panelinden gelince balık listesi fiyatlı görünür */
+.fishes.fiyatli{grid-template-columns:minmax(0,1fr);gap:.5rem}
+.fishes.fiyatli li{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:1rem;align-items:baseline}
+.fishes .fp{font:700 1.05rem/1.2 var(--serif);white-space:nowrap;font-variant-numeric:tabular-nums lining-nums}
+.fishes .fp.sor,.fishes .fp.yok{font:italic 500 .95rem/1.2 var(--serif);color:var(--ink-soft)}
+.fishes .tag{font:italic 500 .95rem var(--serif);color:var(--brass);white-space:nowrap}
 .group-title{margin:1rem 0 -.75rem;text-align:center;font:600 .78rem/1 var(--serif);letter-spacing:.32em;text-transform:uppercase;color:var(--brass);padding-left:.32em}
 
 footer{border-top:1px solid var(--rule)}
@@ -165,6 +171,41 @@ footer .sign{font:600 .78rem/1 var(--serif);font-style:normal;letter-spacing:.32
     });
   },{rootMargin:'-30% 0px -60% 0px'});
   document.querySelectorAll('main section').forEach(function(s){io.observe(s)});
+})();
+</script>
+<script>
+/* Balık fiyatları: işletme panelindeki güncel fiyatlar (yalnızca ad, fiyat, birim). Ulaşılamazsa liste olduğu gibi kalır. */
+(function(){
+  var API='https://script.google.com/macros/s/AKfycby-Nw_iMryUpBZZW-I5GMvlBXSCI2qJtzsZcfVD296zfwLFM4Mg2W3bH7t55FFbiIqT/exec?islem=menu';
+  var ul=document.querySelector('#baliklar .fishes'), note=document.querySelector('#baliklar .note');
+  if(!ul||!window.fetch||!window.JSON)return;
+  var KEY='paraketa_balik_fiyat';
+  var norm=function(x){return String(x||'').trim().toLocaleLowerCase('tr')};
+  var esc=function(x){return String(x).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+  var fmt=function(n){return n.toLocaleString('tr-TR',{maximumFractionDigits:2})+' TL'};
+  var adlar=[].map.call(ul.children,function(li){return li.textContent});
+  function uygula(d){
+    if(!d||!d.balik||!d.balik.length)return;
+    var m={};d.balik.forEach(function(b){m[norm(b.ad)]=b});
+    var liste=adlar.slice();
+    d.balik.slice().sort(function(a,b){return a.sira-b.sira}).forEach(function(b){
+      if(b.ad&&b.mevcut&&!adlar.some(function(a){return norm(a)===norm(b.ad)}))liste.push(b.ad);
+    });
+    var h='',fiyatVar=false;
+    liste.forEach(function(ad){
+      var b=m[norm(ad)], p;
+      if(b&&!b.mevcut)p='<span class="fp yok">Bugün yok</span>';
+      else if(b&&typeof b.fiyat==='number'){p='<span class="fp">'+fmt(b.fiyat)+'</span>';fiyatVar=true;}
+      else p='<span class="fp sor">Bilgi için danışınız</span>';
+      h+='<li><span>'+esc(ad)+(b&&b.birim?' <span class="tag">'+esc(b.birim)+'</span>':'')+'</span>'+p+'</li>';
+    });
+    ul.innerHTML=h;ul.classList.add('fiyatli');
+    if(note&&fiyatVar)note.textContent='Balıklarımızı her gün taze olarak alıyoruz. Fiyatlar günlük olarak güncellenir; fiyatı yazmayan balıklar için lütfen garsonumuza danışınız.';
+  }
+  try{uygula(JSON.parse(localStorage.getItem(KEY)||'null'))}catch(e){}
+  fetch(API).then(function(r){return r.json()}).then(function(d){
+    uygula(d);try{localStorage.setItem(KEY,JSON.stringify(d))}catch(e){}
+  }).catch(function(){});
 })();
 </script>
 </body>

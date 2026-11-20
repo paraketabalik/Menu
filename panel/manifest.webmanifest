@@ -1,0 +1,15 @@
+{
+ "name": "Paraketa Balık · İşletme Paneli",
+ "short_name": "Paraketa Panel",
+ "start_url": "./",
+ "display": "standalone",
+ "background_color": "#ffffff",
+ "theme_color": "#ffffff",
+ "icons": [
+  {
+   "src": "logo-header.svg",
+   "sizes": "any",
+   "type": "image/svg+xml"
+  }
+ ]
+}
